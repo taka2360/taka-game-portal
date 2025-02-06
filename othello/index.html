@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" id="html">
+
+<head>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+    <div class="header"></div>
+    <input type="checkbox" class="openSidebarMenu" id="openSidebarMenu">
+    <label for="openSidebarMenu" class="sidebarIconToggle">
+        <div class="spinner diagonal part-1"></div>
+        <div class="spinner horizontal"></div>
+        <div class="spinner diagonal part-2"></div>
+    </label>
+    <div id="sidebarMenu">
+        <ul class="sidebarMenuInner">
+            <li>ゲーム一覧 </li>
+            <li><a href="../" target="_blank">ホーム</a></li>
+            <li><a href="../gomoku/index.html" target="_blank">五目並べ</a></li>
+        </ul>
+    </div>
+    <div id='center' class="main center">
+        <canvas id="board" width="600" height="600"></canvas>
+    </div>
+
+</body>
+
+</html>
