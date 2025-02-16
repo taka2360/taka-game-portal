@@ -1,6 +1,6 @@
 const canvas = document.getElementById('board');
 const ctx = canvas.getContext('2d');
-const BOARD_SIZE = 10
+const BOARD_SIZE = 8
 const cellSize = canvas.width / BOARD_SIZE;
 
 const board = [];
