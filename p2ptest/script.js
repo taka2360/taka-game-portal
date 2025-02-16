@@ -19,7 +19,9 @@ window.onload = function () {
     // paramがあったときは自動でセット
     const params = new URLSearchParams(location.href.search);
     if (params.size !== 0) {
+        window.alert(params.get("sdp"))
         setRemoteSdp(params.get("sdp"))
+
     }
 }
 
@@ -133,12 +135,13 @@ function setupDataChannel(dc) {
 // 相手の SDP 通知を受ける
 function setRemoteSdp(sdp = "") {
     let sdptext = null;
-    if (sdp === "") {
+    if (sdp == "") {
         sdptext = document.getElementById('remoteSDP').value;
         console.log("手動");
     } else {
         sdptext = sdp;
         console.log("qr");
+        window.alert(sdptext)
     }
 
 
