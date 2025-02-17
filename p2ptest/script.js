@@ -146,13 +146,13 @@ async function setRemoteSdp(sdp = "") {
     if (sdp == "") {
         await navigator.clipboard.readText()
             .then(function (text) {
-                sdptext = text.replace(/ !/g, "\n").replace("[]", "+");
+                sdptext = decodeURL(text.replace(/ !/g, "\n").replace("[]", "+"));
                 console.log("ok")
             });
         console.log("手動");
         console.log(sdptext)
     } else {
-        sdptext = sdp.replace(/ !/g, "\n").replace("[]", "+");
+        sdptext = decodeURL(sdp.replace(/ !/g, "\n").replace("[]", "+"));
         console.log("qr");
         console.log(sdptext)
     }
