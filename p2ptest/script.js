@@ -17,9 +17,9 @@ let dataChannel;
 window.onload = function () {
     document.getElementById('status').value = 'closed';
     // paramがあったときは自動でセット
-    const params = new URLSearchParams(location.href.search);
+    const params = new URLSearchParams(window.location.search);
+    console.log(params.size)
     if (params.size !== 0) {
-        window.alert(params.get("sdp"))
         setRemoteSdp(params.get("sdp"))
 
     }
@@ -41,23 +41,28 @@ function createPeerConnection(isfirst) {
             // Vanilla ICE では，全てのICE candidate を含んだ SDP を相手に通知する
             // （SDP は pc.localDescription.sdp で取得できる）
             // 今回は手動でシグナリングするため textarea に SDP を表示する
-            document.getElementById('localSDP').value = pc.localDescription.sdp;
+            //document.getElementById('localSDP').value = pc.localDescription.sdp;
             document.getElementById('status').value = 'Vanilla ICE ready';
             document.getElementById('QR').textContent = '';
             if (isfirst) {
+                console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp)
+                console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
                 var qrcode = new QRCode('QR', {
-                    text: location.href + "\\?sdp=" + pc.localDescription.sdp,
+                    text: location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
                     width: 512,
                     height: 512,
                     correctLevel: QRCode.CorrectLevel.H
                 });
-            }else{
+                window.alert("相手のデバイスでこのを読み取ってください。")
+            } else {
+                console.log("https://taka-quickcopy.glitch.me/?data=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
                 var qrcode = new QRCode('QR', {
-                    text: "javascript:setRemoteSdp(sdp=\"" + pc.localDescription.sdp + "\")",
+                    text: "https://taka-quickcopy.glitch.me/?data=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
                     width: 512,
                     height: 512,
                     correctLevel: QRCode.CorrectLevel.H
                 });
+                window.alert("相手のデバイスでこのQRコードを読み込み、\"コピーする\"ボタンを押した後、接続ボタンを押してください")
             }
 
         }
@@ -67,6 +72,7 @@ function createPeerConnection(isfirst) {
         switch (pc.connectionState) {
             case "connected":
                 document.getElementById('status').value = 'connected';
+                document.getElementById('QR').textContent = '';
                 window.alert("接続しました")
                 break;
             case "disconnected":
@@ -133,15 +139,20 @@ function setupDataChannel(dc) {
 }
 
 // 相手の SDP 通知を受ける
-function setRemoteSdp(sdp = "") {
+async function setRemoteSdp(sdp = "") {
     let sdptext = null;
     if (sdp == "") {
-        sdptext = document.getElementById('remoteSDP').value;
+        await navigator.clipboard.readText()
+            .then(function (text) {
+                sdptext = text.replace(/ !/g, "\n").replace("[]", "+");
+                console.log("ok")
+            });
         console.log("手動");
+        console.log(sdptext)
     } else {
-        sdptext = sdp;
+        sdptext = sdp.replace(/ !/g, "\n").replace("[]", "+");
         console.log("qr");
-        window.alert(sdptext)
+        console.log(sdptext)
     }
 
 
