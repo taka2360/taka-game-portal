@@ -190,6 +190,7 @@ async function setRemoteSdp(sdp = "") {
             console.log('setRemoteDescription() succeeded.');
         }).catch(function (err) {
             console.error('setRemoteDescription() failed.', err);
+            window.alert('setRemoteDescription() failed.', err)
         });
         // Answer を生成
         peerConnection.createAnswer().then(function (sessionDescription) {
@@ -202,6 +203,7 @@ async function setRemoteSdp(sdp = "") {
             console.log('setLocalDescription() succeeded.');
         }).catch(function (err) {
             console.error('setLocalDescription() failed.', err);
+            window.alert('setLocalDescription() failed.', errr)
         });
         document.getElementById('status').value = 'answer created';
     }
