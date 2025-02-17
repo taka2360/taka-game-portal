@@ -47,12 +47,16 @@ function createPeerConnection(isfirst) {
             if (isfirst) {
                 console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp)
                 console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
+                try{
                 var qrcode = new QRCode('QR', {
                     text: location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
                     width: 512,
                     height: 512,
                     correctLevel: QRCode.CorrectLevel.H
                 });
+                }catch(err){
+                    window.alert(err)
+                }
                 window.alert("相手のデバイスでこのを読み取ってください。")
             } else {
                 console.log("https://taka-quickcopy.glitch.me/?data=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
