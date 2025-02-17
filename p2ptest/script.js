@@ -44,12 +44,12 @@ function createPeerConnection(isfirst) {
             //document.getElementById('localSDP').value = pc.localDescription.sdp;
             document.getElementById('status').value = 'Vanilla ICE ready';
             if (isfirst) {
-                console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp)
-                console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
+                console.log(location.href.replace("/index.html", "") + "?sdp=" + pc.localDescription.sdp)
+                console.log(location.href.replace("/index.html", "") + "?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
                 try{
                     var qr = new QRious({
                         element: document.getElementById('sampleQR'),
-                        value: location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
+                        value: location.href.replace("/index.html", "") + "?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
                         size:600
                     });
                 }catch(err){
