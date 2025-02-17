@@ -55,7 +55,7 @@ function createPeerConnection(isfirst) {
                     correctLevel: QRCode.CorrectLevel.H
                 });
                 }catch(err){
-                    window.alert(err)
+                    window.alert(err.stack)
                 }
                 window.alert("相手のデバイスでこのを読み取ってください。")
             } else {
