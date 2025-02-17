@@ -48,23 +48,19 @@ function createPeerConnection(isfirst) {
                 console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp)
                 console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
                 try{
-                var qrcode = new QRCode('QR', {
-                    text: location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
-                    width: 512,
-                    height: 512,
-                    correctLevel: QRCode.CorrectLevel.H
-                });
+                    var qr = new QRious({
+                        element: document.getElementById('sampleQR'),
+                        value: location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
+                    });
                 }catch(err){
                     window.alert(err.stack)
                 }
                 window.alert("相手のデバイスでこのを読み取ってください。")
             } else {
                 console.log("https://taka-quickcopy.glitch.me/?data=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
-                var qrcode = new QRCode('QR', {
-                    text: "https://taka-quickcopy.glitch.me/?data=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
-                    width: 512,
-                    height: 512,
-                    correctLevel: QRCode.CorrectLevel.H
+                var qr = new QRious({
+                    element: document.getElementById('sampleQR'),
+                    value: "https://taka-quickcopy.glitch.me/?data=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
                 });
                 window.alert("相手のデバイスでこのQRコードを読み込み、\"コピーする\"ボタンを押した後、接続ボタンを押してください")
             }
