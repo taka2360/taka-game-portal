@@ -43,7 +43,6 @@ function createPeerConnection(isfirst) {
             // 今回は手動でシグナリングするため textarea に SDP を表示する
             //document.getElementById('localSDP').value = pc.localDescription.sdp;
             document.getElementById('status').value = 'Vanilla ICE ready';
-            document.getElementById('QR').textContent = '';
             if (isfirst) {
                 console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp)
                 console.log(location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"))
@@ -51,6 +50,7 @@ function createPeerConnection(isfirst) {
                     var qr = new QRious({
                         element: document.getElementById('sampleQR'),
                         value: location.href.replace("/index.html", "") + "\\?sdp=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
+                        size:600
                     });
                 }catch(err){
                     window.alert(err.stack)
@@ -61,6 +61,7 @@ function createPeerConnection(isfirst) {
                 var qr = new QRious({
                     element: document.getElementById('sampleQR'),
                     value: "https://taka-quickcopy.glitch.me/?data=" + pc.localDescription.sdp.replace(/\n/g, "!").replace("+", "[]"),
+                    size: 600
                 });
                 window.alert("相手のデバイスでこのQRコードを読み込み、\"コピーする\"ボタンを押した後、接続ボタンを押してください")
             }
@@ -72,7 +73,8 @@ function createPeerConnection(isfirst) {
         switch (pc.connectionState) {
             case "connected":
                 document.getElementById('status').value = 'connected';
-                document.getElementById('QR').textContent = '';
+                let element = document.getElementById('simpleQR'); 
+                element.remove();
                 window.alert("接続しました")
                 break;
             case "disconnected":
