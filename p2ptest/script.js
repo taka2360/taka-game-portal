@@ -154,6 +154,7 @@ async function setRemoteSdp(sdp = "") {
     } else {
         sdptext = decodeURI(sdp).replace(/!/g, " \n").replace("[]", "+").replace(/!/g, "");
         console.log("qr");
+        alert(decodeURI(sdp))
         window.alert(decodeURI(sdp).replace(/!/g, " \n").replace("[]", "+").replace(/!/g, ""))
     }
 
