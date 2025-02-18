@@ -152,9 +152,9 @@ async function setRemoteSdp(sdp = "") {
         console.log("手動");
         console.log(sdptext)
     } else {
-        sdptext = decodeURI(sdp).replace(/!/g, "\n").replace("[]", "+");
+        sdptext = decodeURI(sdp).replace(/!/g, " \n").replace("[]", "+").replace(/!/g, "");
         console.log("qr");
-        window.alert(sdptext)
+        window.alert(decodeURI(sdp).replace(/!/g, " \n").replace("[]", "+").replace(/!/g, ""))
     }
 
 
